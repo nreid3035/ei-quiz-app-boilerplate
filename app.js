@@ -87,7 +87,7 @@ function returnStartPage() {
   return `
   <div class="main-content-container">
   <p>This quiz contains history questions relating to the continuous war for freedom in Ireland</p>
-  <button>Start Quiz</button>  
+  <button id="start-quiz-button">Start Quiz</button>  
 </div>`
 
 }
@@ -95,11 +95,11 @@ function returnQuestionLayout() {
   // 1. layout the html for the questions with dynamic capabilities
   return `
   <div class="status">
-        <h2>Question Number</h2>
-        <h2>Current Score</h2>
+        <h2>Question Number ${store.questionNumber}/5</h2>
+        <h2>Current Score ${store.score}/5</h2>
       </div>
         <form action="">
-            <h4>Question</h4>
+            <h4>${store.questions}</h4>
           <div class="radio-button">  
             <input type="radio" name="answer-one">
             <label for="answer-one">Answer 1</label>
@@ -119,6 +119,36 @@ function returnQuestionLayout() {
             <input id="submit-button" type="submit" name="submit-button">
         </form>`
 }
+
+function returnAnsweredQuestionLayout() {
+  // layout html for an answered question
+  return `
+  <div class="status">
+        <h2>Question Number ${store.questionNumber}/5</h2>
+        <h2>Current Score ${store.score}</h2>
+      </div>
+        <form action="">
+            <h4>${store.questions}</h4>
+          <div>  
+            <input type="radio" name="answer-one">
+            <label for="answer-one">Answer 1</label>
+          </div>
+          <div class="radio-button">
+            <input type="radio" name="answer-two">
+            <label for="answer-two">Answer 2</label>
+          </div>
+          <div class="radio-button">
+            <input type="radio" name="answer-three">
+            <label for="answer-three">Answer 3</label>
+          </div>
+          <div class="radio-button">
+            <input type="radio" name="answer-four">
+            <label for="answer-four">Answer 4</label>
+          </div>
+        </form>
+        <button id="next-question">Next Question</button>`
+        }
+
 function returnFinalScoreLayout() {
   // 1. layout the html for final score page
   return `
@@ -138,6 +168,18 @@ function returnFinalScoreLayout() {
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
 function render() {
   // 1. update everytime the store is updated
+  if (store.quizStarted === false) {
+    console.log(returnStartPage());
+    $('main').append(returnStartPage());
+  }
+  if (store.questionNumber > 5) {
+    console.log(returnFinalScoreLayout());
+  }
+  if ((store.quizStarted === true) && (store.questionNumber !== 0)) {
+    emptyMain();
+    console.log(returnQuestionLayout());
+    $('main').append(returnQuestionLayout());
+  }
   // 2. render start page if quizStarted is false
   // 3. render question one when quizStarted is switched to true
   // 4. render a new question based on the questionNumber variable
@@ -147,18 +189,32 @@ function render() {
 
 // These functions handle events (submit, click, etc)
 function startQuiz() {
-  // 1. remove any added html elements
-  // 2. render html for 1st question
+  // on click of startquiz button empty main container then render 1stQuestion
+  $('#start-quiz-button').on('click', function(event) {
+    $(emptyMain());
+    store.quizStarted = true;
+    store.questionNumber += 1
+
+  })
+
 }
 
 function updateQuestionNumber() {
-  // 1. establish a counter 
-  // 2. add 1 to counter and display it to the user
+  // on click of next Question add one to questionNumber
+  $('#next-question').on('click', function(event) {
+    return store.questionNumber++
+  })
 }
 
 function updateScoreNumber() {
-  // 1. if answer is correct add one to counter
-  // 2. display new counter to user
+  // on click of submit button check if answer is correct, if answer is correct, add 1 to score
+  $('#submit-button').on('submit', function(event) {
+    // prevent default of submit button
+  event.preventDefault();
+  if (answer === correctAnswer) { // redo with proper variables to check
+    store.score++
+  }
+  })
 }
 
 function submitQuestion() {
@@ -169,8 +225,10 @@ function submitQuestion() {
 }
 
 function nextQuestion() {
-  // 1. remove previous question form content
-  // 2. render new html content
+  // on click of next button, erase previous content, render next question
+  $('#next-question').on('click', function(event) {
+    emptyMain();
+  })
 }
 
 function seeResults() {
@@ -178,3 +236,19 @@ function seeResults() {
   // 2. render final page html
   // 3. change button to start quiz button
 }
+
+
+
+
+// use this function to run all other functions
+function runFunctions() {
+  $(startQuiz());
+  $(updateQuestionNumber());
+  $(updateScoreNumber());
+  $(submitQuestion());
+  $(nextQuestion());
+  $(seeResults());
+  $(render());
+}
+
+$(runFunctions)
