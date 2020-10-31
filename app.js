@@ -193,7 +193,7 @@ function startQuiz() {
   $('#start-quiz-button').on('click', function(event) {
     $(emptyMain());
     store.quizStarted = true;
-    store.questionNumber += 1
+    store.questionNumber = 1
 
   })
 
