@@ -5,7 +5,7 @@ const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'On what holiday di dthe rising of 1916 happen in Dublin?',
+      question: 'On what holiday did the rising of 1916 happen in Dublin?',
       answers: [
         'Christmas',
         'Easter',
@@ -23,7 +23,7 @@ const store = {
         '16'
       ],
       correctAnswer: '16'
-    }
+    },
     {
       question: 'What was the purpose of the 1981 hunger strike in Belfast?',
       answers: [
@@ -80,16 +80,56 @@ const store = {
 // These functions return HTML templates
 function emptyMain() {
   // 1. empty the main section of content
+  $('main').empty();
 }
 function returnStartPage() {
   // 1. layout html for starting page with start quiz button
-  // 2. append this html to the main section of the page on initial upload
+  return `
+  <div class="main-content-container">
+  <p>This quiz contains history questions relating to the continuous war for freedom in Ireland</p>
+  <button>Start Quiz</button>  
+</div>`
+
 }
 function returnQuestionLayout() {
   // 1. layout the html for the questions with dynamic capabilities
+  return `
+  <div class="status">
+        <h2>Question Number</h2>
+        <h2>Current Score</h2>
+      </div>
+        <form action="">
+            <h4>Question</h4>
+          <div class="radio-button">  
+            <input type="radio" name="answer-one">
+            <label for="answer-one">Answer 1</label>
+          </div>
+          <div class="radio-button">
+            <input type="radio" name="answer-two">
+            <label for="answer-two">Answer 2</label>
+          </div>
+          <div class="radio-button">
+            <input type="radio" name="answer-three">
+            <label for="answer-three">Answer 3</label>
+          </div>
+          <div class="radio-button">
+            <input type="radio" name="answer-four">
+            <label for="answer-four">Answer 4</label>
+          </div>
+            <input id="submit-button" type="submit" name="submit-button">
+        </form>`
 }
 function returnFinalScoreLayout() {
   // 1. layout the html for final score page
+  return `
+  <div class="final-p-container">
+          <p>Based on your score this message will tell you how well you know irish history</p>
+      </div>
+      <h2>Display final score here</h2>
+      <div>
+          <img src="" alt="ireland-photo">
+      </div>
+      <button>Start Quiz</button>`
 }
 
 
