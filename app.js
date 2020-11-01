@@ -188,6 +188,22 @@ function emptyMain() {
   $('main').empty();
 }
 
+function updateQuestionNumber() {
+  return store.questionNumber++
+}
+
+function updateScore() {
+  return store.score++
+}
+
+function checkAnswer(choice, correctAnswer) {
+  if (choice === correctAnswer) {
+    return true;
+  }
+  return false;
+}
+
+
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
@@ -201,13 +217,6 @@ function startQuiz() {
 
   })
 
-}
-
-function updateQuestionNumber() {
-  // on click of next Question add one to questionNumber
-  $('#next-question').on('click', function(event) {
-    return store.questionNumber++
-  })
 }
 
 function updateScoreNumber() {
@@ -248,7 +257,6 @@ function seeResults() {
 function runFunctions() {
   $(emptyMain());
   $(startQuiz());
-  $(updateQuestionNumber());
   $(updateScoreNumber());
   $(submitQuestion());
   $(nextQuestion());
