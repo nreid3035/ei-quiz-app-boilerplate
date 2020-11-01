@@ -78,28 +78,24 @@ const store = {
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 
 // These functions return HTML templates
-function emptyMain() {
-  // 1. empty the main section of content
-  $('main').empty();
-}
 function returnStartPage() {
   // 1. layout html for starting page with start quiz button
   return `
   <div class="main-content-container">
-  <p>This quiz contains history questions relating to the continuous war for freedom in Ireland</p>
-  <button id="start-quiz-button">Start Quiz</button>  
-</div>`
+    <p>This quiz contains history questions relating to the continuous war for freedom in Ireland</p>
+    <button id="start-quiz-button" type="button">Start Quiz</button>  
+  </div>`
 
 }
 function returnQuestionLayout() {
   // 1. layout the html for the questions with dynamic capabilities
   return `
   <div class="status">
-        <h2>Question Number ${store.questionNumber}/5</h2>
-        <h2>Current Score ${store.score}/5</h2>
+        <h2>Question Number question num/5</h2>
+        <h2>Current Score score/5</h2>
       </div>
         <form action="">
-            <h4>${store.questions}</h4>
+            <h4>Question:</h4>
           <div class="radio-button">  
             <input type="radio" name="answer-one">
             <label for="answer-one">Answer 1</label>
@@ -124,11 +120,11 @@ function returnAnsweredQuestionLayout() {
   // layout html for an answered question
   return `
   <div class="status">
-        <h2>Question Number ${store.questionNumber}/5</h2>
-        <h2>Current Score ${store.score}</h2>
+        <h2>Question Number question number/5</h2>
+        <h2>Current Score score</h2>
       </div>
         <form action="">
-            <h4>${store.questions}</h4>
+            <h4>Question: </h4>
           <div>  
             <input type="radio" name="answer-one">
             <label for="answer-one">Answer 1</label>
@@ -170,14 +166,14 @@ function render() {
   // 1. update everytime the store is updated
   if (store.quizStarted === false) {
     console.log(returnStartPage());
-    $('main').append(returnStartPage());
+    $('main').html(returnStartPage());
   }
   if (store.questionNumber > 5) {
     console.log(returnFinalScoreLayout());
   }
-  if ((store.quizStarted === true) && (store.questionNumber !== 0)) {
-    emptyMain();
+  if ((store.quizStarted === true) && (store.questionNumber > 0)) {
     console.log(returnQuestionLayout());
+    emptyMain();
     $('main').append(returnQuestionLayout());
   }
   // 2. render start page if quizStarted is false
@@ -185,15 +181,22 @@ function render() {
   // 4. render a new question based on the questionNumber variable
   // 5. if questionNum > 5 render finalscore page
 }
+/********** MICELLANIOUS FUNCTIONS **********/
+function emptyMain() {
+  // 1. empty the main section of content
+  $('main').empty();
+}
+
+
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
 function startQuiz() {
   // on click of startquiz button empty main container then render 1stQuestion
-  $('#start-quiz-button').on('click', function(event) {
-    $(emptyMain());
+  $('main').on('click', '#start-quiz-button', function(event) {
     store.quizStarted = true;
     store.questionNumber = 1
+    render();
 
   })
 
@@ -242,6 +245,7 @@ function seeResults() {
 
 // use this function to run all other functions
 function runFunctions() {
+  $(emptyMain());
   $(startQuiz());
   $(updateQuestionNumber());
   $(updateScoreNumber());
