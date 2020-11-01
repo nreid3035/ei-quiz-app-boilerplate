@@ -89,28 +89,29 @@ function returnStartPage() {
 }
 function returnQuestionLayout() {
   // 1. layout the html for the questions with dynamic capabilities
+  let questionIdx = store.questionNumber - 1;
   return `
   <div class="status">
-        <h2>Question Number question num/5</h2>
-        <h2>Current Score score/5</h2>
+        <h2>Question Number ${store.questionNumber}/${store.questions.length}</h2>
+        <h2>Current Score ${store.score}/${store.questions.length}</h2>
       </div>
         <form action="">
-            <h4>Question:</h4>
+            <h4>Question: ${store.questions[questionIdx].question}</h4>
           <div class="radio-button">  
-            <input type="radio" name="answer-one">
-            <label for="answer-one">Answer 1</label>
+            <input type="radio" name="answer">
+            <label for="answer-one">${store.questions[questionIdx].answers[0]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer-two">
-            <label for="answer-two">Answer 2</label>
+            <input type="radio" name="answer">
+            <label for="answer-two">${store.questions[questionIdx].answers[1]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer-three">
-            <label for="answer-three">Answer 3</label>
+            <input type="radio" name="answer">
+            <label for="answer-three">${store.questions[questionIdx].answers[2]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer-four">
-            <label for="answer-four">Answer 4</label>
+            <input type="radio" name="answer">
+            <label for="answer-four">${store.questions[questionIdx].answers[3]}</label>
           </div>
             <input id="submit-button" type="submit" name="submit-button">
         </form>`
