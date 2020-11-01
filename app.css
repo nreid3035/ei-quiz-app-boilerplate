@@ -56,3 +56,30 @@ main {
   align-self: center;
   padding: 10px 0px;
 }
+
+/*question page css*/
+#question-page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+}
+
+.status {
+  text-align: center;
+  border: 1px solid black;
+}
+
+form {
+  border: 1px solid black;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+#submit-button {
+  width: 35%;
+  align-self: center;
+  padding: 5px;
+  margin-top: 5px;
+}

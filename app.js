@@ -57,7 +57,8 @@ const store = {
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0
+  score: 0,
+  questionAnswered: false
 };
 
 /**
@@ -91,7 +92,8 @@ function returnQuestionLayout() {
   // 1. layout the html for the questions with dynamic capabilities
   let questionIdx = store.questionNumber - 1;
   return `
-  <div class="status">
+  <div id='question-page'>
+      <div class="status">
         <h2>Question Number ${store.questionNumber}/${store.questions.length}</h2>
         <h2>Current Score ${store.score}/${store.questions.length}</h2>
       </div>
@@ -114,7 +116,8 @@ function returnQuestionLayout() {
             <label for="answer-four">${store.questions[questionIdx].answers[3]}</label>
           </div>
             <input id="submit-button" type="submit" name="submit-button">
-        </form>`
+        </form>
+  </div>`
 }
 
 function returnAnsweredQuestionLayout() {
@@ -219,22 +222,16 @@ function startQuiz() {
 
 }
 
-function updateScoreNumber() {
-  // on click of submit button check if answer is correct, if answer is correct, add 1 to score
-  $('#submit-button').on('submit', function(event) {
-    // prevent default of submit button
-  event.preventDefault();
-  if (answer === correctAnswer) { // redo with proper variables to check
-    store.score++
-  }
-  })
-}
-
 function submitQuestion() {
-  // 1. if answer is correct display element saying correct else display element saying wrong
-  // 2. change submit button to next question button
-  // 3. if question 5 change submit button to see results button.
-  // 4. update score number
+  $('form').submit(function(event) {
+    event.preventDefault();
+    let radioValue = $('input[name="answer"]:checked').val()
+    if (checkAnswer(radioValue, store.questions[store.questionNumber - 1].correctAnswer)) {
+      updateScore();
+    }
+  })
+  updateQuestionNumber();
+
 }
 
 function nextQuestion() {
@@ -257,7 +254,6 @@ function seeResults() {
 function runFunctions() {
   $(emptyMain());
   $(startQuiz());
-  $(updateScoreNumber());
   $(submitQuestion());
   $(nextQuestion());
   $(seeResults());
