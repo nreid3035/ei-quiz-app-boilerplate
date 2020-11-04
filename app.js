@@ -58,7 +58,6 @@ const store = {
   quizStarted: false,
   questionNumber: 0,
   score: 0,
-  questionAnswered: false
 };
 
 /**
@@ -100,19 +99,19 @@ function returnQuestionLayout() {
         <form action="">
             <h4>Question: ${store.questions[questionIdx].question}</h4>
           <div class="radio-button">  
-            <input type="radio" name="answer">
+            <input type="radio" name="answer" id="answer-one" value="${store.questions[questionIdx].answers[0]}">
             <label for="answer-one">${store.questions[questionIdx].answers[0]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer">
+            <input type="radio" name="answer" id="answer-two" value="${store.questions[questionIdx].answers[1]}">
             <label for="answer-two">${store.questions[questionIdx].answers[1]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer">
+            <input type="radio" name="answer" id="answer-three" value="${store.questions[questionIdx].answers[2]}">
             <label for="answer-three">${store.questions[questionIdx].answers[2]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer">
+            <input type="radio" name="answer" id="amswer-four" value="${store.questions[questionIdx].answers[3]}">
             <label for="answer-four">${store.questions[questionIdx].answers[3]}</label>
           </div>
             <input id="submit-button" type="submit" name="submit-button">
@@ -120,46 +119,51 @@ function returnQuestionLayout() {
   </div>`
 }
 
-function returnAnsweredQuestionLayout() {
+/*function returnAnsweredQuestionLayout() {
   // layout html for an answered question
+  let questionIdx = store.questionNumber - 1;
   return `
-  <div class="status">
-        <h2>Question Number question number/5</h2>
-        <h2>Current Score score</h2>
+  <div id='question-page'>
+      <div class="status">
+        <h2>Question Number ${store.questionNumber}/${store.questions.length}</h2>
+        <h2>Current Score ${store.score}/${store.questions.length}</h2>
       </div>
         <form action="">
-            <h4>Question: </h4>
-          <div>  
-            <input type="radio" name="answer-one">
-            <label for="answer-one">Answer 1</label>
+            <h4>Question: ${store.questions[questionIdx].question}</h4>
+          <div class="radio-button">  
+            <input type="radio" name="answer" id="answer-one" value="${store.questions[questionIdx].answers[0]}">
+            <label for="answer-one">${store.questions[questionIdx].answers[0]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer-two">
-            <label for="answer-two">Answer 2</label>
+            <input type="radio" name="answer" id="answer-two" value="${store.questions[questionIdx].answers[1]}">
+            <label for="answer-two">${store.questions[questionIdx].answers[1]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer-three">
-            <label for="answer-three">Answer 3</label>
+            <input type="radio" name="answer" id="answer-three" value="${store.questions[questionIdx].answers[2]}">
+            <label for="answer-three">${store.questions[questionIdx].answers[2]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer-four">
-            <label for="answer-four">Answer 4</label>
+            <input type="radio" name="answer" id="amswer-four" value="${store.questions[questionIdx].answers[3]}">
+            <label for="answer-four">${store.questions[questionIdx].answers[3]}</label>
           </div>
         </form>
-        <button id="next-question">Next Question</button>`
-        }
+        <button id='next-button'>Next Question</button>
+  </div>`
+        }*/
 
 function returnFinalScoreLayout() {
   // 1. layout the html for final score page
   return `
-  <div class="final-p-container">
-          <p>Based on your score this message will tell you how well you know irish history</p>
+    <div id='final-container'>
+      <div class="final-p-container">
+          <p>${scoreMessage()}</p>
       </div>
-      <h2>Display final score here</h2>
-      <div>
-          <img src="" alt="ireland-photo">
+      <h2>${store.score}/${store.questions.length}</h2>
+      <div id='img-container'>
+          <img src="../images/ireland-three.jpg" alt="ireland-photo">
       </div>
-      <button>Start Quiz</button>`
+      <button id='retake-button'>Start Quiz</button>
+    </div>`
 }
 
 
@@ -173,12 +177,12 @@ function render() {
     $('main').html(returnStartPage());
   }
   if (store.questionNumber > 5) {
-    console.log(returnFinalScoreLayout());
+    $('main').html(returnFinalScoreLayout());
   }
   if ((store.quizStarted === true) && (store.questionNumber > 0)) {
     console.log(returnQuestionLayout());
     emptyMain();
-    $('main').append(returnQuestionLayout());
+    $('main').html(returnQuestionLayout());
   }
   // 2. render start page if quizStarted is false
   // 3. render question one when quizStarted is switched to true
@@ -206,6 +210,13 @@ function checkAnswer(choice, correctAnswer) {
   return false;
 }
 
+function scoreMessage() {
+  if (store.score >= 3) {
+    return 'You deserve a drink! You know your history.'
+  } else {
+     return 'Better start hitting the books and not the pubs!'
+  }
+}
 
 
 /********** EVENT HANDLER FUNCTIONS **********/
@@ -215,7 +226,7 @@ function startQuiz() {
   // on click of startquiz button empty main container then render 1stQuestion
   $('main').on('click', '#start-quiz-button', function(event) {
     store.quizStarted = true;
-    store.questionNumber = 1
+    updateQuestionNumber();
     render();
 
   })
@@ -223,28 +234,38 @@ function startQuiz() {
 }
 
 function submitQuestion() {
-  $('form').submit(function(event) {
+  $('main').on('submit', 'form', function(event) {
     event.preventDefault();
+    store.questionAnswered = true;
     let radioValue = $('input[name="answer"]:checked').val()
     if (checkAnswer(radioValue, store.questions[store.questionNumber - 1].correctAnswer)) {
       updateScore();
+      render();
+      $('main').append(`<p>Correct</p>
+      <button id='next-button'>Next Question</button>`);
+    } else {
+      render();
+      $('main').append(`<p>Not Correct</p>
+      <button id='next-button'>Next Question</button>`);
     }
+    
   })
-  updateQuestionNumber();
 
 }
 
 function nextQuestion() {
   // on click of next button, erase previous content, render next question
-  $('#next-question').on('click', function(event) {
+  $('main').on('click', '#next-button', function(event) {
     emptyMain();
+    updateQuestionNumber();
+    render();
   })
 }
 
-function seeResults() {
-  // 1. remove html elements from page
-  // 2. render final page html
-  // 3. change button to start quiz button
+function retakeQuiz() {
+  $('main').on('click', '#retake-button', function(event) {
+    emptyMain();
+  })
 }
 
 
@@ -256,7 +277,7 @@ function runFunctions() {
   $(startQuiz());
   $(submitQuestion());
   $(nextQuestion());
-  $(seeResults());
+  $(retakeQuiz());
   $(render());
 }
 

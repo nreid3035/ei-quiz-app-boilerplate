@@ -83,3 +83,20 @@ form {
   padding: 5px;
   margin-top: 5px;
 }
+
+/*********FINAL PAGE CSS ************/
+
+#final-container {
+  width: 80%;
+  height: auto;
+}
+
+#img-container {
+  width: 60%;
+  height: auto;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
