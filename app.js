@@ -99,22 +99,22 @@ function returnQuestionLayout() {
         <form action="">
             <h4>Question: ${store.questions[questionIdx].question}</h4>
           <div class="radio-button">  
-            <input type="radio" name="answer" id="answer-one" value="${store.questions[questionIdx].answers[0]}">
+            <input type="radio" required name="answer" id="answer-one" class="stop-answer" value="${store.questions[questionIdx].answers[0]}">
             <label for="answer-one">${store.questions[questionIdx].answers[0]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer" id="answer-two" value="${store.questions[questionIdx].answers[1]}">
+            <input type="radio" required  name="answer" id="answer-two" class="stop-answer" value="${store.questions[questionIdx].answers[1]}">
             <label for="answer-two">${store.questions[questionIdx].answers[1]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer" id="answer-three" value="${store.questions[questionIdx].answers[2]}">
+            <input type="radio" required  name="answer" id="answer-three" class="stop-answer" value="${store.questions[questionIdx].answers[2]}">
             <label for="answer-three">${store.questions[questionIdx].answers[2]}</label>
           </div>
           <div class="radio-button">
-            <input type="radio" name="answer" id="amswer-four" value="${store.questions[questionIdx].answers[3]}">
+            <input type="radio" required  name="answer" id="answer-four" class="stop-answer" value="${store.questions[questionIdx].answers[3]}">
             <label for="answer-four">${store.questions[questionIdx].answers[3]}</label>
           </div>
-            <input id="submit-button" type="submit" name="submit-button">
+            <input id="submit-button" type="submit" name="submit-button" class="stop-answer">
         </form>
   </div>`
 }
@@ -131,7 +131,7 @@ function returnFinalScoreLayout() {
       <div id='img-container'>
           <img src="../images/ireland-three.jpg" alt="ireland-photo">
       </div>
-      <button id='retake-button'>Start Quiz</button>
+      <button id='retake-button'>Retake Quiz</button>
     </div>`
 }
 
@@ -206,7 +206,7 @@ function submitQuestion() {
   $('main').on('submit', 'form', function(event) {
     event.preventDefault();
     store.questionAnswered = true;
-    let radioValue = $('input[name="answer"]:checked').val()
+    let radioValue = $('input[name="answer"]:checked').val();
     if (checkAnswer(radioValue, store.questions[store.questionNumber - 1].correctAnswer)) {
       updateScore();
       render();
@@ -219,7 +219,7 @@ function submitQuestion() {
       <button id='next-button'>Next Question</button>
       </div>)`);
     }
-    
+    $('.stop-answer').prop('disabled', true);
   })
 
 }
