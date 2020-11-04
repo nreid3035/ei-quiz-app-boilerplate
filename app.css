@@ -34,6 +34,7 @@ main {
   margin: auto;
   padding: 0px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
 }
@@ -47,6 +48,7 @@ main {
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
+  align-self: center;
   padding: 15px;
   margin-top: 40px
 }

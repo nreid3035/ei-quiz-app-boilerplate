@@ -119,37 +119,6 @@ function returnQuestionLayout() {
   </div>`
 }
 
-/*function returnAnsweredQuestionLayout() {
-  // layout html for an answered question
-  let questionIdx = store.questionNumber - 1;
-  return `
-  <div id='question-page'>
-      <div class="status">
-        <h2>Question Number ${store.questionNumber}/${store.questions.length}</h2>
-        <h2>Current Score ${store.score}/${store.questions.length}</h2>
-      </div>
-        <form action="">
-            <h4>Question: ${store.questions[questionIdx].question}</h4>
-          <div class="radio-button">  
-            <input type="radio" name="answer" id="answer-one" value="${store.questions[questionIdx].answers[0]}">
-            <label for="answer-one">${store.questions[questionIdx].answers[0]}</label>
-          </div>
-          <div class="radio-button">
-            <input type="radio" name="answer" id="answer-two" value="${store.questions[questionIdx].answers[1]}">
-            <label for="answer-two">${store.questions[questionIdx].answers[1]}</label>
-          </div>
-          <div class="radio-button">
-            <input type="radio" name="answer" id="answer-three" value="${store.questions[questionIdx].answers[2]}">
-            <label for="answer-three">${store.questions[questionIdx].answers[2]}</label>
-          </div>
-          <div class="radio-button">
-            <input type="radio" name="answer" id="amswer-four" value="${store.questions[questionIdx].answers[3]}">
-            <label for="answer-four">${store.questions[questionIdx].answers[3]}</label>
-          </div>
-        </form>
-        <button id='next-button'>Next Question</button>
-  </div>`
-        }*/
 
 function returnFinalScoreLayout() {
   // 1. layout the html for final score page
@@ -245,8 +214,10 @@ function submitQuestion() {
       <button id='next-button'>Next Question</button>`);
     } else {
       render();
-      $('main').append(`<p>Not Correct</p>
-      <button id='next-button'>Next Question</button>`);
+      $('main').append(`<div>
+      <p>Not Correct</p>
+      <button id='next-button'>Next Question</button>
+      </div>)`);
     }
     
   })
@@ -265,6 +236,10 @@ function nextQuestion() {
 function retakeQuiz() {
   $('main').on('click', '#retake-button', function(event) {
     emptyMain();
+    store.quizStarted = false;
+    store.score = 0;
+    store. questionNumber = 0;
+    render();
   })
 }
 
