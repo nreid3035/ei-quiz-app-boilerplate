@@ -124,10 +124,10 @@ function returnFinalScoreLayout() {
   // 1. layout the html for final score page
   return `
     <div id='final-container'>
-      <div class="final-p-container">
-          <p class="score-message">${scoreMessage()}</p>
+      <div class="final-score-container">
+        <h2 class="final-score">Final Score: ${store.score}/${store.questions.length}</h2>
+        <p class="score-message">${scoreMessage()}</p>
       </div>
-      <h2 class="final-score">Final Score: ${store.score}/${store.questions.length}</h2>
       <div id='img-container'>
           <img src="../images/ireland-three.jpg" alt="ireland-photo">
       </div>
@@ -210,15 +210,15 @@ function submitQuestion() {
     if (checkAnswer(radioValue, store.questions[store.questionNumber - 1].correctAnswer)) {
       updateScore();
       render();
-      $('main').append(`<div>
-      <p>Correct</p>
-      <button id='next-button'>Next Question</button>
+      $('main').append(`<div class="question-response">
+      <p class='answer-result'>Correct!</p>
+      <button class='next-button'>Next Question</button>
       </div>`);
     } else {
       render();
-      $('main').append(`<div>
-      <p>Not Correct</p>
-      <button id='next-button'>Next Question</button>
+      $('main').append(`<div class="question-response">
+      <p class="answer-result">Not Correct</p>
+      <button class='next-button'>Next Question</button>
       </div>)`);
     }
     $('.stop-answer').prop('disabled', true);
@@ -228,7 +228,7 @@ function submitQuestion() {
 
 function nextQuestion() {
   // on click of next button, erase previous content, render next question
-  $('main').on('click', '#next-button', function(event) {
+  $('main').on('click', '.next-button', function(event) {
     emptyMain();
     updateQuestionNumber();
     render();

@@ -97,6 +97,11 @@ h1 {
 .status {
   text-align: center;
   border: 1px solid black;
+  align-self: center;
+  position: relative;
+  bottom: 25px;
+  width: 70%;
+  background-color: #F1F5F2;
 }
 
 form {
@@ -104,19 +109,47 @@ form {
   padding: 15px;
   display: flex;
   flex-direction: column;
+  width: 70%;
+  height: auto;
+  align-self: center;
+  background-color: #F1F5F2;
 }
 
 #submit-button {
   width: 35%;
   align-self: center;
   padding: 5px;
-  margin-top: 5px;
+  margin-top: 15px;
+  background-color: #5E4955;
+  color: white;
+}
+/**********question-answer**********/
+.question-response {
+  width: 70%;
+  border: 1px solid black;
+  align-self: center;
+  background-color: #F1F5F2;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+
+.answer-result {
+  align-self: center;
+}
+
+.next-button {
+  width: 50%;
+  align-self: center;
+  background-color: #5E4955;
+  color: #F1F5F2;
 }
 
 /*********FINAL PAGE CSS ************/
 
 #final-container {
-  width: 80%;
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -125,18 +158,41 @@ form {
   align-content: center;
 }
 
-.final-score {
+.final-score-container {
+  width: 70%;
+  height: auto;
+  border: 1px solid black;
+  background-color: #F1F5F2;
   align-self: center;
+  position: relative;
+  bottom: 25px
+}
+
+.final-score {
+  text-align: center;
+}
+
+.score-message {
+  text-align: center;
 }
 
 
 #img-container {
-  width: 60%;
+  width: 70%;
   height: auto;
-  align-self: center;
-}
+  align-self: center;}
 
 img {
   width: 100%;
   height: auto;
+}
+
+#retake-button {
+  width: 70%;
+  align-self: center;
+  padding: 10px 0px;
+  position: relative;
+  top: 10px;
+  background-color: #5E4955;
+  color: white;
 }
