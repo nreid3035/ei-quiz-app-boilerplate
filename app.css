@@ -14,9 +14,20 @@
 5. #F1F5F2 (eggshell white) */
 
 
+/***************MEDIA QUERIES*************/
+
+
 
 * {
   box-sizing: border-box;
+}
+
+.serif {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.sans-serif {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
@@ -25,6 +36,7 @@ html {
   margin: auto;
   padding: 0px;
 }
+
 body {
   width: 100vw;
   height: auto;
@@ -54,6 +66,8 @@ h1 {
   margin: 0px;
   align-self: center;
   color: #F1F5F2;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 28px;
 }
 
 /*start page css*/
@@ -137,6 +151,7 @@ form {
 
 .answer-result {
   align-self: center;
+  font-size: 18px;
 }
 
 .next-button {
@@ -174,13 +189,15 @@ form {
 
 .score-message {
   text-align: center;
+  font-size: 16px;
 }
 
 
 #img-container {
   width: 70%;
   height: auto;
-  align-self: center;}
+  align-self: center;
+}
 
 img {
   width: 100%;
@@ -195,4 +212,29 @@ img {
   top: 10px;
   background-color: #5E4955;
   color: white;
+  font-size: 18px;
+}
+
+@media all and (min-width: 600px) {
+  .main-content-container {
+    width: 40%;
+  }
+  .status {
+    width: 40%;
+  }
+  form {
+    width: 40%;
+  }
+  .question-response {
+    width: 40%;
+  }
+  .final-score-container {
+    width: 40%;
+  }
+  #img-container {
+    width: 30%;
+  }
+  #retake-button {
+    width: 40%;
+  }
 }

@@ -82,8 +82,8 @@ function returnStartPage() {
   // 1. layout html for starting page with start quiz button
   return `
   <div class="main-content-container">
-    <p id='quiz-intro'>This quiz contains history questions relating to the continuous war for freedom in Ireland</p>
-    <button id="start-quiz-button" type="button">Start Quiz</button>  
+    <p id='quiz-intro' class="sans-serif">This quiz contains history questions relating to the continuous war for freedom in Ireland</p>
+    <button id="start-quiz-button" class="sans-serif" type="button">Start Quiz</button>  
   </div>`
 
 }
@@ -92,7 +92,7 @@ function returnQuestionLayout() {
   let questionIdx = store.questionNumber - 1;
   return `
   <div id='question-page'>
-      <div class="status">
+      <div class="status serif">
         <h2>Question Number ${store.questionNumber}/${store.questions.length}</h2>
         <h2>Current Score ${store.score}/${store.questions.length}</h2>
       </div>
@@ -114,7 +114,7 @@ function returnQuestionLayout() {
             <input type="radio" required  name="answer" id="answer-four" class="stop-answer" value="${store.questions[questionIdx].answers[3]}">
             <label for="answer-four">${store.questions[questionIdx].answers[3]}</label>
           </div>
-            <input id="submit-button" type="submit" name="submit-button" class="stop-answer">
+            <input class="sans-serif" id="submit-button" type="submit" name="submit-button" class="stop-answer">
         </form>
   </div>`
 }
@@ -125,13 +125,13 @@ function returnFinalScoreLayout() {
   return `
     <div id='final-container'>
       <div class="final-score-container">
-        <h2 class="final-score">Final Score: ${store.score}/${store.questions.length}</h2>
-        <p class="score-message">${scoreMessage()}</p>
+        <h2 class="final-score serif">Final Score: ${store.score}/${store.questions.length}</h2>
+        <p class="score-message sans-serif">${scoreMessage()}</p>
       </div>
       <div id='img-container'>
           <img src="../images/ireland-three.jpg" alt="ireland-photo">
       </div>
-      <button id='retake-button'>Retake Quiz</button>
+      <button id='retake-button' class="sans-serif">Retake Quiz</button>
     </div>`
 }
 
@@ -211,14 +211,14 @@ function submitQuestion() {
       updateScore();
       render();
       $('main').append(`<div class="question-response">
-      <p class='answer-result'>Correct!</p>
-      <button class='next-button'>Next Question</button>
+      <p class='answer-result sans-serif'>Correct!</p>
+      <button class='next-button sans-serif'>Next Question</button>
       </div>`);
     } else {
       render();
       $('main').append(`<div class="question-response">
-      <p class="answer-result">Not Correct</p>
-      <button class='next-button'>Next Question</button>
+      <p class="answer-result sans-serif">Not Correct</p>
+      <button class='next-button sans-serif'>Next Question</button>
       </div>)`);
     }
     $('.stop-answer').prop('disabled', true);
