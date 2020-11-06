@@ -82,7 +82,7 @@ function returnStartPage() {
   // 1. layout html for starting page with start quiz button
   return `
   <div class="main-content-container">
-    <p>This quiz contains history questions relating to the continuous war for freedom in Ireland</p>
+    <p id='quiz-intro'>This quiz contains history questions relating to the continuous war for freedom in Ireland</p>
     <button id="start-quiz-button" type="button">Start Quiz</button>  
   </div>`
 
