@@ -125,9 +125,9 @@ function returnFinalScoreLayout() {
   return `
     <div id='final-container'>
       <div class="final-p-container">
-          <p>${scoreMessage()}</p>
+          <p class="score-message">${scoreMessage()}</p>
       </div>
-      <h2>${store.score}/${store.questions.length}</h2>
+      <h2 class="final-score">Final Score: ${store.score}/${store.questions.length}</h2>
       <div id='img-container'>
           <img src="../images/ireland-three.jpg" alt="ireland-photo">
       </div>
@@ -210,8 +210,10 @@ function submitQuestion() {
     if (checkAnswer(radioValue, store.questions[store.questionNumber - 1].correctAnswer)) {
       updateScore();
       render();
-      $('main').append(`<p>Correct</p>
-      <button id='next-button'>Next Question</button>`);
+      $('main').append(`<div>
+      <p>Correct</p>
+      <button id='next-button'>Next Question</button>
+      </div>`);
     } else {
       render();
       $('main').append(`<div>

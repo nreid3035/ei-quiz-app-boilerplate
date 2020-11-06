@@ -50,7 +50,9 @@ main {
   text-align: center;
   align-self: center;
   padding: 15px;
-  margin-top: 40px
+  margin-top: 40px;
+  position: relative;
+  bottom: 75px;
 }
 
 #start-quiz-button {
@@ -91,11 +93,22 @@ form {
 #final-container {
   width: 80%;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  align-content: center;
 }
+
+.final-score {
+  align-self: center;
+}
+
 
 #img-container {
   width: 60%;
   height: auto;
+  align-self: center;
 }
 
 img {
